@@ -8,7 +8,7 @@ import os
 
 print("Vous devez avoir les privilèges root pour executer ce script.")
 answer=input(" Continuer? (O/n)")
-if answer != "o" and answer != 'O':
+if answer != "o" and answer != "O":
 	print("stop")
 	exit(1)
 print("Continue \n")
