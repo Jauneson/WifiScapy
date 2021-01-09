@@ -3,6 +3,14 @@ import sys
 import os
 
 
+#on vérifie que le paquet soit un beacon frame pour l'afficher
+
+def action_packets(packet):
+	#print(packet.show())
+	if packet.haslayer(Dot11):
+		if packet.type == 0 and packet.subtype == 8:
+			print("Point d'accès: %s , SSID: %s \n" %(packet.addr2, packet.info))
+
 
 #main
 
@@ -22,4 +30,5 @@ except:														#si ça ne marche pas, erreur
 	print("l'interface n'existe pas ou n'est pas détectée")
 	exit(1)
 os.system('ifconfig ' + interface + ' up')
-print("\n l'interface est désormais en mode monitor")
+print("\nl'interface est désormais en mode monitor\nLancement sniffer...")
+sniff(iface=interface, prn=action_packets)
