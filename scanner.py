@@ -4,12 +4,15 @@ import os
 
 
 #on vérifie que le paquet soit un beacon frame pour l'afficher
+ap_list = []
 
 def action_packets(packet):
 	#print(packet.show())
 	if packet.haslayer(Dot11):
 		if packet.type == 0 and packet.subtype == 8:
-			print("Point d'accès: %s , SSID: %s \n" %(packet.addr2, packet.info))
+			if packet.addr2 not in ap_list:
+				ap_list.append(packet.addr2)
+				print("Point d'accès: %s , SSID: %s , channel: %s  \n" %(packet.addr2, packet.info, packet[RadioTap].channel))
 
 
 #main
@@ -33,4 +36,10 @@ except:														#si ça ne marche pas, erreur
 	exit(1)
 os.system('ifconfig ' + interface + ' up')
 print("\nl'interface est désormais en mode monitor\nLancement sniffer...")
-sniff(iface=interface, prn=action_packets)
+i = 1
+while True:
+	sniff(iface=interface, prn=action_packets, count =20)
+	os.system("iw dev "+ interface + " set channel %d" % i)
+	i = i + 1
+	if i > 15 :
+		i = 1
