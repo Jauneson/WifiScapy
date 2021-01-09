@@ -32,5 +32,5 @@ except:														#si ça ne marche pas, erreur
 	print("l'interface n'existe pas ou n'est pas détectée")
 	exit(1)
 os.system('ifconfig ' + interface + ' up')
-print("\nl'interface est désormais en mode monitor\nLancement sniffer..."")
+print("\nl'interface est désormais en mode monitor\nLancement sniffer...")
 sniff(iface=interface, prn=action_packets)
