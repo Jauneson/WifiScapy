@@ -15,7 +15,7 @@ def action_packets(packet):
 #main
 
 print("Vous devez avoir les privilèges root pour executer ce script.")
-answer=input(" Continuer? (O/n)")
+answer=input("Continuer? (O/n)")
 if answer != "o" and answer != "O":
 	print("stop")
 	exit(1)
