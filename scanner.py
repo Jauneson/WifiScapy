@@ -3,12 +3,12 @@ import sys
 import os
 
 
-#on vérifie que le paquet soit un beacon frame pour l'afficher
+
 ap_list = []
 
 def action_packets(packet):
 	#print(packet.show())
-	if packet.haslayer(Dot11):
+	if packet.haslayer(Dot11):  #on vérifie que le paquet soit un beacon frame pour l'afficher
 		if packet.type == 0 and packet.subtype == 8:
 			if packet.addr2 not in ap_list:
 				ap_list.append(packet.addr2)
@@ -34,7 +34,7 @@ try:
 except:														#si ça ne marche pas, erreur
 	print("l'interface n'existe pas ou n'est pas détectée")
 	exit(1)
-os.system('ifconfig ' + interface + ' up')
+os.system('ifconfig ' + interface + ' up')			#on peut up l'interface
 print("\nl'interface est désormais en mode monitor\nLancement sniffer...")
 i = 1
 while True:
